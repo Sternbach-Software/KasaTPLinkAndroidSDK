@@ -28,6 +28,7 @@ Unfortunately, the last two functions cannot be condensed into `lamp.isOn` with 
 This SDK is heavily based on [this](https://github.com/artnc/kasa-widget-android) widget which is under the MIT license.
 
 # License
+```
    Copyright [2022] [software@sternbach.org]
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,3 +42,4 @@ This SDK is heavily based on [this](https://github.com/artnc/kasa-widget-android
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+```
