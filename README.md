@@ -24,7 +24,7 @@ dependencies {
 
 ## Usage
 
-The entry point to this sdk is the `KasaDeviceManager` class. Use this class by creating an instance using the empty constructor, calling [authenticate], and then using the instance to create [KasaDevice]s by calling [withDevice]. For example:
+The entry point to this sdk is the `KasaDeviceManager` class. Use this class by creating an instance using the empty constructor, calling `authenticate`, and then using the instance to create `KasaDevice`s by calling `withDevice`. For example:
 
 ```kotlin
 val manager = KasaDeviceManager()
