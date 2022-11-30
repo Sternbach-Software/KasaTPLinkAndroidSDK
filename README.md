@@ -3,8 +3,6 @@ This is an (unofficial) Android SDK for interacting with Kasa smart devices and 
 
 ## Dependency
 
-Use JitPack to download this library.
-
 In newer Gradle versions, insert this into `settings.gradle`:
 
 ```
