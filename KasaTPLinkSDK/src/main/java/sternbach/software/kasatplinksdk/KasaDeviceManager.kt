@@ -76,7 +76,7 @@ class KasaDeviceManager {
     suspend fun authenticate(
         email: String,
         password: String,
-        onError: suspend (t: Throwable, tokenResponse: Response<TokenResponse>, deviceResponse: Response<DeviceResponse>?) -> Unit
+        onError: suspend (t: Throwable, tokenResponse: Response<TokenResponse>, deviceResponse: Response<DeviceResponse>?) -> Unit = {}
     ) {
         if (::token.isInitialized) return
         val body = TokenRequestBody(email, password)
