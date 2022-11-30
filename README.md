@@ -29,10 +29,28 @@ The entry point to this sdk is the `KasaDeviceManager` class. Use this class by 
 ```kotlin
 val manager = KasaDeviceManager()
 manager.authenticate(email, password)
-val lamp = manager.withDevice(/* alias = */"Kitchen lamp")!!
+val lamp = manager.withDevice(/* alias = */ "Kitchen lamp")!!
 ```
 
-You can also use the `KasaDeviceManager` to get a list of devices associated with the account. There are two types of device objects the SDK exposes: the device objects as returned from the Kasa API (which have a lot of meaningless information), or a more user-friendly object that only has the alias (user-assigned name of smart device) and functions for turning on and off the device. The currently available functions are (I welcome PRs):
+
+You can also use the `KasaDeviceManager` to get a list of devices associated with the account. 
+
+There are two types of device objects the SDK exposes: 
+
+ - the device objects as returned from the Kasa API (which have a lot of meaningless hardware information):
+ 
+```
+manager.getAllDevices()
+```
+
+ - a more user-friendly object (`KasaDevice`) that only has the alias (user-assigned name of smart device) and functions for turning on and off the device. 
+ 
+ ```
+ manager.getAllKasaDevices()
+ ```
+ 
+ The currently available functions of `KasaDevice` are (I welcome PRs):
+
 
 ```kotlin
 lamp.turnOn()
