@@ -1,4 +1,4 @@
-# Kasa TP-Link SDK
+# Kasa TP-Link Android SDK
 This is an (unofficial) Android SDK for interacting with Kasa smart devices and the Kasa API. 
 
 ## Usage
