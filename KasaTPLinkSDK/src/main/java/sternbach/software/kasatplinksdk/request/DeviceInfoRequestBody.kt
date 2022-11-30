@@ -1,0 +1,3 @@
+package sternbach.software.kasatplinksdk.request
+
+class DeviceInfoRequestBody
