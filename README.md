@@ -25,7 +25,7 @@ The above are all suspending functions, as is `authenticate`, because they use R
 Unfortunately, the last two functions cannot be condensed into `lamp.isOn` with a getter and setter because these functions are suspend, and suspending properties are currently [not supported](https://youtrack.jetbrains.com/issue/KT-15555).
 
 # Credits
-This SDK is heavily based on [this](https://github.com/artnc/kasa-widget-android) widget from @artnc
+This SDK is heavily based on [this](https://github.com/artnc/kasa-widget-android) widget which is under the MIT license.
 
 # License
    Copyright [2022] [software@sternbach.org]
