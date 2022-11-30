@@ -1,6 +1,29 @@
 # Kasa TP-Link Android SDK
 This is an (unofficial) Android SDK for interacting with Kasa smart devices and the Kasa API. 
 
+## Dependency
+
+Use JitPack to download this library.
+
+In newer Gradle versions, insert this into `settings.gradle`:
+
+```
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+And then download the library as usual:
+
+```
+dependencies {
+    implementation 'com.github.Sternbach-Software:KasaTPLinkAndroidSDK:-SNAPSHOT'
+}
+```
+
 ## Usage
 
 The entry point to this sdk is the `KasaDeviceManager` class. Use this class by creating an instance using the empty constructor, calling [authenticate], and then using the instance to create [KasaDevice]s by calling [withDevice]. For example:
