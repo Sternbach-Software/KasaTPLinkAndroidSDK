@@ -181,7 +181,7 @@ class KasaDeviceManager {
     /**
      * The entry point for issuing commands to the smart device.
      * */
-    class KasaDevice internal constructor(
+    data class KasaDevice internal constructor(
         val alias: String,
         private val deviceId: String,
         private val appServerUrl: String,
