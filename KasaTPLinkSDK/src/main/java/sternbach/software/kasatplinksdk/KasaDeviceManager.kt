@@ -1,7 +1,9 @@
 package sternbach.software.kasatplinksdk
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,6 +30,8 @@ import sternbach.software.kasatplinksdk.serialization.GsonTypeAdapters
  * ```
  * */
 class KasaDeviceManager {
+    
+    private val TAG = "KasaDeviceManager"
 
     /**
      * API auth token for this account
@@ -46,6 +50,24 @@ class KasaDeviceManager {
         Retrofit
             .Builder()
             .baseUrl("https://wap.tplinkcloud.com/")
+            .client(
+                OkHttpClient.Builder()
+                .addInterceptor {
+                    Log.d(TAG, "Interceptor: $it")
+                    Log.d(TAG, "Request: ${it.request()}")
+                    Log.d(TAG, "Call: ${it.call()}")
+                    Log.d(TAG, "Connection: ${it.runCatching { it.connection() }.getOrNull()}")
+                    it.proceed(it.request().newBuilder().build())
+                }
+                .addNetworkInterceptor {
+                    Log.d(TAG, "Network interceptor: $it")
+                    Log.d(TAG, "Request: ${it.request()}")
+                    Log.d(TAG, "Call: ${it.call()}")
+                    Log.d(TAG, "Connection: ${it.runCatching { it.connection() }.getOrNull()}")
+                    it.proceed(it.request().newBuilder().build())
+                }
+                .build()
+            )
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder()
