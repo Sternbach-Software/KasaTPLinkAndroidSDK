@@ -1,8 +1,8 @@
 package sternbach.software.kasatplinksdk
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -30,8 +30,9 @@ import sternbach.software.kasatplinksdk.serialization.GsonTypeAdapters
  * ```
  * */
 class KasaDeviceManager {
-    
-    private val TAG = "KasaDeviceManager"
+
+    private var interceptor: Interceptor? = null
+    private var networkInterceptor: Interceptor? = null
 
     /**
      * API auth token for this account
@@ -52,21 +53,11 @@ class KasaDeviceManager {
             .baseUrl("https://wap.tplinkcloud.com/")
             .client(
                 OkHttpClient.Builder()
-                .addInterceptor {
-                    Log.d(TAG, "Interceptor: $it")
-                    Log.d(TAG, "Request: ${it.request()}")
-                    Log.d(TAG, "Call: ${it.call()}")
-                    Log.d(TAG, "Connection: ${it.runCatching { it.connection() }.getOrNull()}")
-                    it.proceed(it.request().newBuilder().build())
-                }
-                .addNetworkInterceptor {
-                    Log.d(TAG, "Network interceptor: $it")
-                    Log.d(TAG, "Request: ${it.request()}")
-                    Log.d(TAG, "Call: ${it.call()}")
-                    Log.d(TAG, "Connection: ${it.runCatching { it.connection() }.getOrNull()}")
-                    it.proceed(it.request().newBuilder().build())
-                }
-                .build()
+                    .apply {
+                        interceptor?.let { addInterceptor(it) }
+                        networkInterceptor?.let { addNetworkInterceptor(it) }
+                    }
+                    .build()
             )
             .addConverterFactory(
                 GsonConverterFactory.create(
@@ -98,9 +89,13 @@ class KasaDeviceManager {
     suspend fun authenticate(
         email: String,
         password: String,
-        onError: suspend (t: Throwable, tokenResponse: Response<TokenResponse>, deviceResponse: Response<DeviceResponse>?) -> Unit = {_,_,_->}
+        interceptor: Interceptor? = null,
+        networkInterceptor: Interceptor? = null,
+        onError: suspend (t: Throwable, tokenResponse: Response<TokenResponse>, deviceResponse: Response<DeviceResponse>?) -> Unit = { _, _, _ -> }
     ) {
         if (::token.isInitialized) return
+        this.interceptor = interceptor
+        this.networkInterceptor = networkInterceptor
         val body = TokenRequestBody(email, password)
         val tokenResponse = kasaApi.getToken(body)
         var deviceInfoResponse: Response<DeviceResponse>? = null
