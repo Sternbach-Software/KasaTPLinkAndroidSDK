@@ -162,14 +162,14 @@ class KasaDeviceManager {
 
     /**
      * Returns whether the device with the specified [alias] is currently on.
-     * @return null if unauthenticated.
+     * @return null if unauthenticated or a device with that [alias] doesn't exist.
      * */
     private suspend fun isDeviceOn(
         alias: String
     ): Boolean? {
         if (!::token.isInitialized) return null
         else {
-            val device = devices.find { it.alias == alias } ?: return false
+            val device = devices.find { it.alias == alias } ?: return null
             return kasaApi.rpc(
                 device.appServerUrl,
                 token,
